@@ -1,0 +1,18 @@
+{
+  "name": "rockschtar/wordpress-controller",
+  "description": "Simple controller for wordpress development",
+  "license": "proprietary",
+  "require": {
+    "php": ">=7.1"
+  },
+  "require-dev": {
+  },
+  "repositories": [
+
+  ],
+  "autoload": {
+    "psr-4": {
+      "Rockschtar\\WordPress\\Controller\\": "src/"
+    }
+  }
+}
