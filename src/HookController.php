@@ -5,7 +5,7 @@
 
 namespace Rockschtar\WordPress\Controller;
 
-trait Controller {
+trait HookController {
 
     /**
      * Internal property to track closures attached to WordPress hooks
