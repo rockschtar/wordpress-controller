@@ -15,6 +15,19 @@ trait Controller {
     protected $__filterMap = [];
 
     /**
+     * @return static
+     */
+    public static function &init() {
+        static $instance = null;
+        /** @noinspection ClassConstantCanBeUsedInspection */
+        $class = \get_called_class();
+        if ($instance === null) {
+            $instance = new $class();
+        }
+        return $instance;
+    }
+
+    /**
      * Add a WordPress filter
      *
      * @param string $hook
@@ -121,19 +134,4 @@ trait Controller {
         }
         return $this->__filterMap[$id];
     }
-
-    /**
-     * @return static
-     */
-    public static function &init() {
-        static $instance = null;
-        /** @noinspection ClassConstantCanBeUsedInspection */
-        $class = \get_called_class();
-        if ($instance === null) {
-            $instance = new $class();
-        }
-        return $instance;
-    }
-
-
 }
