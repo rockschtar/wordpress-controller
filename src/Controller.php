@@ -5,11 +5,7 @@
 
 namespace Rockschtar\WordPress\Controller;
 
-abstract class Controller {
-
-    public function __construct() {
-
-    }
+trait Controller {
 
     /**
      * Internal property to track closures attached to WordPress hooks
@@ -52,7 +48,7 @@ abstract class Controller {
      * @param int $priority
      * @param int $argCount
      */
-    protected function removeFilter($hook, $method, $priority = 10, $argCount = 1) {
+    protected function removeFilter($hook, $method, $priority = 10, $argCount = 1) : void {
         remove_filter($hook, $this->mapFilter($this->getWpFilterId($hook, $method, $priority), $method, $argCount), $priority);
     }
 
