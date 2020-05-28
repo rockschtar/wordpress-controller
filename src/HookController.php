@@ -150,11 +150,11 @@ trait HookController
     }
 
     /**
-     * @param $method
+     * @param callable $method
      * @param mixed ...$args
      * @return callable
      */
-    protected function doCallback($method, ...$args): callable
+    protected function addCallback($method, ...$args): callable
     {
         return function () use ($method, $args) {
 
