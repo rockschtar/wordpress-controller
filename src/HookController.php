@@ -1,9 +1,9 @@
 <?php
-/**
- * @author: StefanHelmer
- */
-
 namespace Rockschtar\WordPress\Controller;
+
+use Closure;
+
+use function get_called_class;
 
 trait HookController {
 
@@ -20,7 +20,7 @@ trait HookController {
     public static function &init() {
         static $instance = null;
         /** @noinspection ClassConstantCanBeUsedInspection */
-        $class = \get_called_class();
+        $class = get_called_class();
         if ($instance === null) {
             $instance = new $class();
         }
@@ -124,7 +124,7 @@ trait HookController {
      * @param $method
      * @param $argCount
      *
-     * @return \Closure The callable actually attached to a WP hook
+     * @return Closure The callable actually attached to a WP hook
      */
     protected function mapFilter($id, $method, $argCount): callable {
         if (empty($this->__filterMap[$id])) {
@@ -133,5 +133,16 @@ trait HookController {
             };
         }
         return $this->__filterMap[$id];
+    }
+
+    /**
+     * @param $method
+     * @param mixed ...$args
+     * @return callable
+     */
+    protected function doCallback($method, ...$args) : callable {
+        return function() use ($method, $args) {
+            return $this->{$method}($args);
+        };
     }
 }
