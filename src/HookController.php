@@ -1,11 +1,15 @@
 <?php
+
 namespace Rockschtar\WordPress\Controller;
 
 use Closure;
 
 use function get_called_class;
 
-trait HookController {
+trait HookController
+{
+
+
 
     /**
      * Internal property to track closures attached to WordPress hooks
@@ -17,9 +21,10 @@ trait HookController {
     /**
      * @return static
      */
-    public static function &init() {
+    public static function &init()
+    {
         static $instance = null;
-        /** @noinspection ClassConstantCanBeUsedInspection */
+/** @noinspection ClassConstantCanBeUsedInspection */
         $class = get_called_class();
         if ($instance === null) {
             $instance = new $class();
@@ -35,7 +40,8 @@ trait HookController {
      * @param int $priority
      * @param int $argCount
      */
-    protected function addFilter($hook, $method, $priority = 10, $argCount = 1): void {
+    protected function addFilter($hook, $method, $priority = 10, $argCount = 1): void
+    {
         add_filter($hook, $this->mapFilter($this->getWpFilterId($hook, $method, $priority), $method, $argCount), $priority, $argCount);
     }
 
@@ -49,7 +55,8 @@ trait HookController {
      * @param int $priority
      * @param int $argCount
      */
-    protected function addAction($hook, $method, $priority = 10, $argCount = 1): void {
+    protected function addAction($hook, $method, $priority = 10, $argCount = 1): void
+    {
         $this->addFilter($hook, $method, $priority, $argCount);
     }
 
@@ -61,7 +68,8 @@ trait HookController {
      * @param int $priority
      * @param int $argCount
      */
-    protected function removeFilter($hook, $method, $priority = 10, $argCount = 1) : void {
+    protected function removeFilter($hook, $method, $priority = 10, $argCount = 1): void
+    {
         remove_filter($hook, $this->mapFilter($this->getWpFilterId($hook, $method, $priority), $method, $argCount), $priority);
     }
 
@@ -75,8 +83,9 @@ trait HookController {
      * @param int      $priority
      * @param int      $argCount
      */
-    protected function removeAction( $hook, $method, $priority = 10, $argCount = 1 ): void {
-        $this->removeFilter( $hook, $method, $priority, $argCount );
+    protected function removeAction($hook, $method, $priority = 10, $argCount = 1): void
+    {
+        $this->removeFilter($hook, $method, $priority, $argCount);
     }
 
     /**
@@ -85,7 +94,8 @@ trait HookController {
      * @param string $action The action to run
      * @param array ...$args Any extra arguments to pass to do_action
      */
-    protected function doAction($action, ...$args): void {
+    protected function doAction($action, ...$args): void
+    {
         do_action($action, ...$args);
     }
 
@@ -98,7 +108,8 @@ trait HookController {
      *
      * @return mixed
      */
-    protected function applyFilters($filter, $value, ...$args) {
+    protected function applyFilters($filter, $value, ...$args)
+    {
         return apply_filters($filter, $value, ...$args);
     }
 
@@ -111,7 +122,8 @@ trait HookController {
      *
      * @return bool|string
      */
-    protected function getWpFilterId($hook, $method, $priority) {
+    protected function getWpFilterId($hook, $method, $priority)
+    {
         return _wp_filter_build_unique_id($hook, [$this, $method], $priority);
     }
 
@@ -126,9 +138,11 @@ trait HookController {
      *
      * @return Closure The callable actually attached to a WP hook
      */
-    protected function mapFilter($id, $method, $argCount): callable {
+    protected function mapFilter($id, $method, $argCount): callable
+    {
         if (empty($this->__filterMap[$id])) {
             $this->__filterMap[$id] = function (...$args) use ($method, $argCount) {
+
                 return $this->{$method}(...array_slice($args, 0, $argCount));
             };
         }
@@ -140,8 +154,10 @@ trait HookController {
      * @param mixed ...$args
      * @return callable
      */
-    protected function doCallback($method, ...$args) : callable {
-        return function() use ($method, $args) {
+    protected function doCallback($method, ...$args): callable
+    {
+        return function () use ($method, $args) {
+
             return $this->{$method}($args);
         };
     }
