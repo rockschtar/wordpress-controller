@@ -1,6 +1,6 @@
 {
   "name": "rockschtar/wordpress-controller",
-  "description": "Simple controller for wordpress development",
+  "description": "Controller Trait for handling WordPress Hooks",
   "license": "MIT",
   "require": {
     "php": ">=7.1"
