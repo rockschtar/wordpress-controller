@@ -156,8 +156,7 @@ trait HookController
      */
     protected function addCallback($method, ...$args): callable
     {
-        return function () use ($method, $args) {
-
+        return function ($args) use ($method) {
             return $this->{$method}($args);
         };
     }
