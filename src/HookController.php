@@ -8,9 +8,6 @@ use function get_called_class;
 
 trait HookController
 {
-
-
-
     /**
      * Internal property to track closures attached to WordPress hooks
      *
