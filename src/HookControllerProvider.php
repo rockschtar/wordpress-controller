@@ -6,9 +6,9 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RegexIterator;
 
-final class WordPressController
+final class HookControllerProvider
 {
-    public static function autoInitialize(string $controllerDirectoryPath): void
+    public static function boot(string $controllerDirectoryPath): void
     {
         $controllerClasses = array();
 
