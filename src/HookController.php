@@ -23,7 +23,7 @@ trait HookController
         static $instance = null;
 /** @noinspection ClassConstantCanBeUsedInspection */
         $class = get_called_class();
-        if ($instance === null) {
+        if ($instance === null || $instance instanceof $class === false) {
             $instance = new $class();
         }
         return $instance;
